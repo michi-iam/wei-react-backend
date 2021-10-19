@@ -1,0 +1,12 @@
+export SECRET_KEY='Your secret Key'
+export DEBUG_VALUE='True'
+export DATABASE_NAME=''
+export DATABASE_USER=''
+export DATABASE_PassW=''
+export CORSALLOWED1="http://Your react app"
+export CORSALLOWED2=""
+export ALLOWEDHOST1="localhost"
+export ALLOWEDHOST2="XXX.XXX.XXX.XX"
+
+
+
