@@ -5,6 +5,7 @@ import environ
 
 env = environ.Env()
 
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -16,6 +17,7 @@ STATICFILES_DIRS = (
 
 SECRET_KEY = env('SECRET_KEY')
 
+BASEURL = env("BASEURL")
 
 DEBUG = env.bool('DEBUG_VALUE', default=False)
 
