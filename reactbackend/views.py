@@ -8,11 +8,12 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 
-from . categories import categories as selfSerializedCats
 from . models import Category, Template, Post, Link, Image
 from . serializers import CategorySerializer, TemplateSerializer, PostSerializer, LinkSerializer
 
-from . categories import get_images_serialized, get_mainImage_serialized
+from .categories.categories import categories as selfSerializedCats
+from .categories.public_categories import public_categories as selfSerializedPublicCats
+from .categories.categories import get_images_serialized, get_mainImage_serialized
 
 
 class MainContext():
@@ -31,17 +32,24 @@ class MainContext():
     }
 
 
-class BackAndFront(MainContext):
+class PublicContext(MainContext):
     @api_view(['GET'])
-    @permission_classes([IsAuthenticated])
-    def get_categories(request):
-        self = BackAndFront()
-        categories = selfSerializedCats()
+    def get_public_context(request):
+        self = PublicContext()
+        categories = selfSerializedPublicCats()
         return Response({self.keys["categories"]: categories})
 
 
 
 class BackOnly(MainContext):
+    #Categorys with posts etc
+    @api_view(['GET'])
+    @permission_classes([IsAuthenticated])
+    def get_categories(request):
+        self = BackOnly()
+        categories = selfSerializedCats()
+        return Response({self.keys["categories"]: categories})
+
     #Posts
     @api_view(['GET'])
     @permission_classes([IsAuthenticated])

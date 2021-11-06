@@ -1,9 +1,11 @@
-from . models import Template, Link, Category, Image, Post
 from django.utils.safestring import mark_safe
 
-from . serializers import TemplateSerializer, CategorySerializer, LinkSerializer
+from .. models import Template, Link, Category, Image, Post
+from .. serializers import TemplateSerializer, CategorySerializer, LinkSerializer
 
-staticUrl = "http://192.168.178.72:8000/static/"
+from django.conf import settings
+
+staticUrl = settings.BASEURL+"/static/"
 
 def get_images_serialized(post):
     p=post
@@ -37,12 +39,13 @@ def get_mainImage_serialized(post):
 
 
 
-def categories():
+def public_categories():
     Categories = []
     categories = Category.objects.all()
     for c in categories:
         Posts=[]
         posts = Post.objects.filter(category=c)
+        posts = posts.filter(active=1)
         for p in posts:
             Images = get_images_serialized(p)
             postObj = {

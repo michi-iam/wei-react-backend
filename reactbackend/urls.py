@@ -2,14 +2,15 @@ from django.urls import path
 from . import views
 
 
-#Both
+#Frontend / Public
 urlpatterns = [
-    path("get_categories/", views.BackAndFront.get_categories, name="get_categories"),
+    path("get_public_context/", views.PublicContext.get_public_context, name="get_public_context"),
 ]
 
-#Back
+#Back / Admin
 #Posts
 urlpatterns += [
+    path("get_categories/", views.BackOnly.get_categories, name="get_categories"),
     path("get_post_choices/", views.BackOnly.get_post_choices, name="get_post_choices"),#
     path("toggle_post_active/", views.BackOnly.toggle_post_active, name="toggle_post_active"),
     path("edit_post_basics/", views.BackOnly.edit_post_basics, name="edit_post_basics"),
