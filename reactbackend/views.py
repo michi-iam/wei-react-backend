@@ -216,8 +216,9 @@ class BackOnly(MainContext):
         imageId = request.data["imageId"]
         postId = request.data["postId"]
         post = Post.objects.get(pk=postId)
-        oldMain = post.mainImage
-        post.images.add(oldMain)
+        if(post.mainImage):
+            oldMain = post.mainImage
+            post.images.add(oldMain)
         image = Image.objects.get(pk=imageId)
         post.mainImage = image
         post.save()
