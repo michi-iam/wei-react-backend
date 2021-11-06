@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 import os
 import environ
 
@@ -18,12 +19,15 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env.bool('DEBUG_VALUE', default=False)
 
-ALLOWED_HOSTS = [env("ALLOWEDHOST1"), env("ALLOWEDHOST2")]
+ALLOWED_HOSTS = [env("ALLOWEDHOST1"), env("ALLOWEDHOST2"), env("ALLOWEDHOST3")]
 
 
 INSTALLED_APPS = [
     'reactbackend',
     "corsheaders",
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -111,4 +115,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     env("CORSALLOWED1"),
     env("CORSALLOWED2"),
+    env("CORSALLOWED3"),
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+
+}
